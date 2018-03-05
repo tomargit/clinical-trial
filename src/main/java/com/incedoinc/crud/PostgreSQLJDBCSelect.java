@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.incedoinc.dao.PostgreConnection;
+
 public class PostgreSQLJDBCSelect {
    public static void main( String args[] ) {
-      Connection c = null;
+      Connection c = PostgreConnection.getConnection();
       Statement stmt = null;
       try {
          Class.forName("org.postgresql.Driver");
@@ -22,16 +24,8 @@ public class PostgreSQLJDBCSelect {
          while ( rs.next() ) {
         	float Visit_ID = rs.getInt("Visit_ID");
         	Object data = rs.getObject("Data");
-            /*String  name = rs.getString("name");
-            int age  = rs.getInt("age");
-            String  address = rs.getString("address");
-            float salary = rs.getFloat("salary");*/
             System.out.println( "ID = " + Visit_ID );
             System.out.println( "Data = " + data );
-            /*System.out.println( "NAME = " + name );
-            System.out.println( "AGE = " + age );
-            System.out.println( "ADDRESS = " + address );
-            System.out.println( "SALARY = " + salary );*/
             System.out.println();
          }
          rs.close();

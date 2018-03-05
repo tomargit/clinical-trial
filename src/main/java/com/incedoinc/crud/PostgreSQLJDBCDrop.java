@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import com.incedoinc.dao.PostgreConnection;
+
 
 public class PostgreSQLJDBCDrop {
    public static void main( String args[] ) {
-      Connection c = null;
+      Connection c = PostgreConnection.getConnection();
       Statement stmt = null;
       try {
          Class.forName("org.postgresql.Driver");
@@ -17,12 +19,6 @@ public class PostgreSQLJDBCDrop {
          System.out.println("Opened database successfully");
 
          stmt = c.createStatement();
-         /*String sql = "CREATE TABLE COMPANY " +
-            "(ID INT PRIMARY KEY     NOT NULL," +
-            " NAME           TEXT    NOT NULL, " +
-            " AGE            INT     NOT NULL, " +
-            " ADDRESS        CHAR(50), " +
-            " SALARY         REAL)";*/
          
          String sql = "DROP TABLE Patient_Visit_Clinical_Data ";
          

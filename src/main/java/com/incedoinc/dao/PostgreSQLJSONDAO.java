@@ -8,8 +8,7 @@ public class PostgreSQLJSONDAO {
 
 	public boolean insert(String data) {
 		Connection conn = null;
-		conn = getConnection();
-
+		conn = PostgreConnection.getConnection();
 		System.out.println(data);
 		try {
 			conn.setAutoCommit(false);
@@ -25,19 +24,5 @@ public class PostgreSQLJSONDAO {
 		}
 		System.out.println("Records created successfully");
 		return false;
-	}
-
-	public static Connection getConnection() {
-		Connection c = null;
-		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "manish", "tomar");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		System.out.println("Opened database successfully");
-		return c;
 	}
 }
