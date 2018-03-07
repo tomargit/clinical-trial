@@ -18,12 +18,6 @@ import com.incedoinc.dao.PostgreSQLJSONDAO;
 
 public class ExcelFileReaderJSON {
 	
-	
-	
-	public ExcelFileReaderJSON() {
-		
-	}
-
 	public String  processFileRead(final InputStream inputStream) {
 		try {
 			Workbook workbook = new XSSFWorkbook(inputStream);

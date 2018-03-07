@@ -9,21 +9,20 @@ import com.incedoinc.dao.PostgreConnection;
 
 public class PostgreSQLJDBCDelete {
    public static void main( String args[] ) {
-      Connection c = PostgreConnection.getConnection();
+     
       Statement stmt = null;
       try {
          Class.forName("org.postgresql.Driver");
-         c = DriverManager
-            .getConnection("jdbc:postgresql://localhost:5432/postgres",
-            "manish", "tomar");
+         Connection conn = null;
+ 		conn = PostgreConnection.getConnection();
          System.out.println("Opened database successfully");
 
-         stmt = c.createStatement();
+         stmt = conn.createStatement();
          String sql = "DELETE FROM Patient_Visit_Clinical_Data ";
          
          stmt.executeUpdate(sql);
          stmt.close();
-         c.close();
+         conn.close();
       } catch ( Exception e ) {
          System.err.println( e.getClass().getName()+": "+ e.getMessage() );
          System.exit(0);

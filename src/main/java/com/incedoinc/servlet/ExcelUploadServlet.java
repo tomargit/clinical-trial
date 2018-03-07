@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.incedoinc.api.RestAPICall;
 import com.incedoinc.file.reader.ExcelFileReaderJSON;
 
 @WebServlet(name = "ExcelUploadServlet", urlPatterns = { "/UploadServlet" })
@@ -42,9 +43,9 @@ public class ExcelUploadServlet extends HttpServlet {
 		InputStream filecontent = null;
 
 		try {
-			
 			filecontent = filePart.getInputStream();
 			final String json = jsonReader.processFileRead(filecontent);
+			RestAPICall.createBlockchain(json);
 			return json;
 		} catch (FileNotFoundException fne) {
 			fne.printStackTrace();
