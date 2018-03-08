@@ -43,6 +43,11 @@
 				success : function(data) {
 					console.log("success");
 					console.log(data);
+					$('h4').remove();
+					if(data=='true')
+						$("<h4>Report is not Tempered</h4>").insertAfter("#reportForm h2");
+					else
+						$("<h4 style='color: red;'>Report is Tempered</h4>").insertAfter("#reportForm h2");
 				},
 				complete : function(data) {
 					console.log("complete");

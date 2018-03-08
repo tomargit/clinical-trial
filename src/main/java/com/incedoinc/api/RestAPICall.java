@@ -50,8 +50,9 @@ public class RestAPICall {
 
 	}
 
-	public static void generateReport(String patentDetail) {
+	public static String generateReport(String patentDetail) {
 
+		String msg = null;
 		try {
 
 			DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -86,7 +87,7 @@ public class RestAPICall {
 			e.printStackTrace();
 
 		}
-
+		return msg;
 	}
 
 }

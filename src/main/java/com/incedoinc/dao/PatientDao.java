@@ -40,7 +40,7 @@ public class PatientDao {
 				}
 
 			}
-			if (patientData.length() == 0)
+			if (patientData.length() != 0)
 				patientData.append("]");
 			rs.close();
 			stmt.close();

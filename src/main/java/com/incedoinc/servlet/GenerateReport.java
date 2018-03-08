@@ -25,7 +25,8 @@ public class GenerateReport extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Servlet Start!!!!!!!!!!!!!!");
 		final String json = generateReport(request.getParameter("patentId"));
-		response.setContentType("application/json");
+		//response.setContentType("application/json");
+		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);
 	}
@@ -35,8 +36,8 @@ public class GenerateReport extends HttpServlet {
 		PatientDao patientData = new PatientDao();
 		
 		final String patentDetail =   patientData.getPatientData(patientId);
-		RestAPICall.generateReport(patentDetail);
-		return null;
+		final String msg = RestAPICall.generateReport(patentDetail);
+		return msg;
 	}
 
 }
