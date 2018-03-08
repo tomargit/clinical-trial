@@ -3,6 +3,7 @@ package com.incedoinc.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PostgreSQLJSONDAO {
 
@@ -17,10 +18,16 @@ public class PostgreSQLJSONDAO {
 			ps.setObject(1, data);
 			ps.executeUpdate();
 			conn.commit();
-
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Records created successfully");
 		return false;
