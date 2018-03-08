@@ -16,7 +16,7 @@ import javax.servlet.http.Part;
 import com.incedoinc.api.RestAPICall;
 import com.incedoinc.file.reader.ExcelFileReaderJSON;
 
-@WebServlet(name = "ExcelUploadServlet", urlPatterns = { "/UploadServlet" })
+@WebServlet(name = "ExcelUploadServlet", urlPatterns = { "/uploadServlet" })
 @MultipartConfig
 public class ExcelUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
