@@ -33,13 +33,15 @@ public class PatientDao {
 
 				if (jsonObject.get("Patient_ID").equals(patientId)) {
 					if (patientData.length() == 0)
-						patientData.append(data.toString());
+						patientData.append("[" + data.toString());
 					else
 						patientData.append("," + data.toString());
 
 				}
 
 			}
+			if (patientData.length() == 0)
+				patientData.append("]");
 			rs.close();
 			stmt.close();
 			conn.close();
