@@ -17,8 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.incedoinc.dao.PostgreSQLJSONDAO;
 
 public class ExcelFileReaderJSON {
-	
-	public String  processFileRead(final InputStream inputStream) {
+
+	public String processFileRead(final InputStream inputStream) {
 		try {
 			Workbook workbook = new XSSFWorkbook(inputStream);
 			Sheet datatypeSheet = workbook.getSheetAt(0);
@@ -29,7 +29,7 @@ public class ExcelFileReaderJSON {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -40,7 +40,7 @@ public class ExcelFileReaderJSON {
 		Iterator<Row> iterator = datatypeSheet.iterator();
 		final PostgreSQLJSONDAO insertDao = new PostgreSQLJSONDAO();
 		List<String> columnString = new ArrayList<String>();
-		
+
 		if (iterator.hasNext()) {
 			Row currentRow = iterator.next();
 			Iterator<Cell> cellIterator = currentRow.iterator();
@@ -56,27 +56,35 @@ public class ExcelFileReaderJSON {
 			Row currentRow = iterator.next();
 			Iterator<Cell> cellIterator = currentRow.iterator();
 			int i = 0;
+			boolean empty = true;
 			column.append("{");
 			while (cellIterator.hasNext() && i < columnString.size()) {
 				final String s = columnString.get(i);
 				Cell currentCell = cellIterator.next();
 				if (currentCell.getCellTypeEnum() == CellType.STRING) {
 					column.append("\"" + s + "\": " + "\"" + currentCell.getStringCellValue() + "\"");
+					empty = false;
 				} else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
 					column.append("\"" + s + "\": " + "\"" + currentCell.getNumericCellValue() + "\"");
-				}
+					empty = false;
+				} else
+					column.append("\"" + s + "\": " + "\"\"");
+
 				i++;
 				if (columnString.size() != i) {
 					column.append(",");
 				}
 			}
 			column.append("}");
-			insertDao.insert(column.toString());
-			if(iterator.hasNext())
-				json.append(column.toString()+",");
-			else
-				json.append(column.toString());
-			
+
+			if (!empty) {
+				insertDao.insert(column.toString());
+				if (iterator.hasNext())
+					json.append(column.toString() + ",");
+				else
+					json.append(column.toString());
+			}
+
 		}
 		json.append("]");
 

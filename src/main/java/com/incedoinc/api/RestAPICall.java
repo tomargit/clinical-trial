@@ -74,6 +74,7 @@ public class RestAPICall {
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
 				System.out.println(output);
+				msg = output;
 			}
 
 			httpClient.getConnectionManager().shutdown();
