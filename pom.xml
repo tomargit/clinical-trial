@@ -57,16 +57,4 @@
 			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<finalName>clinical-trial</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<outputDirectory>C:\Users\Administrator\Desktop\intellije\apache-tomcat-9.0.5\webapps</outputDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
