@@ -87,7 +87,10 @@ public class ExcelFileReaderJSON {
 
 		}
 		json.append("]");
-
+		
+		if(json.length() > 2 && json.charAt(json.length()-2) == ',')
+			json =  new StringBuilder(json.substring(0, json.length()-2).toString() + "]");
+			
 		return json.toString();
 	}
 }
