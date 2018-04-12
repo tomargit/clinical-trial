@@ -24,6 +24,10 @@ public class HomeServlet extends HttpServlet {
 		final List<String> patientIds = patient.getPatientIds();
 		
 		request.setAttribute("patientIds", patientIds);
+		
+		final List<String> investigatorIds = patient.getInvestigatorIds();
+		
+		request.setAttribute("investigatorIds", investigatorIds);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

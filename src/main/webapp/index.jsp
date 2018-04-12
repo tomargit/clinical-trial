@@ -33,9 +33,13 @@
 		});
 		$("#reportSubmit").click(function() {
 			console.log('click');
+			var formData = new FormData();
+			formData.append('patentId', $('select').val());
+			formData.append('role', $('select option:selected').data('role'));
+			//new FormData(document.getElementById("reportForm"))
 			jQuery.ajax({
 				url : 'generateReport',
-				data : new FormData(document.getElementById("reportForm")),
+				data : formData,
 				cache : false,
 				contentType : false,
 				processData : false,
@@ -86,9 +90,18 @@
 					<%
 						List<String> patientId = (ArrayList<String>) request.getAttribute("patientIds");
 						for (String id : patientId) {
-							out.print("<option value='"+id+"'>"+id+"</option>" + id);
+							out.print("<option value='"+id+"' data-role='PATIENT'>"+id+"</option>" + id);
 						}
 					%>
+					
+					<%
+						List<String> investigatorIds = (ArrayList<String>) request.getAttribute("investigatorIds");
+						for (String id : investigatorIds) {
+							out.print("<option value='"+id+"' data-role='SITE_INVESTIGATOR'>"+id+"</option>" + id);
+						}
+					%>
+					
+					<option value='CRO' data-role='CRO'>CRO</option>
 
 					<%-- <c:forEach var="id" items="${patientIds}">
 						<option value='<c:out value = "${id}"/>'><c:out

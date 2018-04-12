@@ -81,4 +81,34 @@ public class PatientDao {
 		}
 		return patientIds;
 	}
+
+	public List<String> getInvestigatorIds() {
+		
+		Statement stmt = null;
+		List<String> patientIds = new ArrayList<String>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection conn = null;
+			conn = PostgreConnection.getConnection();
+			conn.setAutoCommit(false);
+
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Patient_Visit_Clinical_Data;");
+			while (rs.next()) {
+				Object data = rs.getObject("Data");
+				JSONParser parser = new JSONParser();
+				Object obj = parser.parse(data.toString());
+				JSONObject jsonObject = (JSONObject) obj;
+				if (!patientIds.contains(jsonObject.get("Site_Investigator_ID").toString()))
+					patientIds.add(jsonObject.get("Site_Investigator_ID").toString());
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		return patientIds;
+	}
 }
