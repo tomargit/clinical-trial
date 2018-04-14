@@ -58,12 +58,17 @@ public class ExcelFileReaderJSON {
 			int i = 0;
 			boolean empty = true;
 			column.append("{");
+			String visitId = new String();
 			while (cellIterator.hasNext() && i < columnString.size()) {
 				final String s = columnString.get(i);
 				Cell currentCell = cellIterator.next();
+				
 				if (currentCell.getCellTypeEnum() == CellType.STRING) {
 					column.append("\"" + s + "\": " + "\"" + currentCell.getStringCellValue() + "\"");
 					empty = false;
+					
+					if(i==0)
+						visitId=currentCell.getStringCellValue();
 				} else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
 					column.append("\"" + s + "\": " + "\"" + currentCell.getNumericCellValue() + "\"");
 					empty = false;
@@ -78,7 +83,12 @@ public class ExcelFileReaderJSON {
 			column.append("}");
 
 			if (!empty) {
-				insertDao.insert(column.toString());
+				int index = insertDao.getVisitIndex(visitId);
+				if(index>0)
+					insertDao.update(column.toString(), (float) index);
+				else
+					insertDao.insert(column.toString());
+				
 				if (iterator.hasNext())
 					json.append(column.toString() + ",");
 				else
